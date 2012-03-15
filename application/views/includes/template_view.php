@@ -1,0 +1,10 @@
+<?php
+    $this->load->view('includes/header_view');
+    $this->load->view('includes/menu_view');
+    $this->load->view($page);
+    if($this->session->userdata('id'))
+        $this->load->view('includes/sidebar_view');
+    else
+        $this->load->view('includes/sidebar_login_view');
+    $this->load->view('includes/footer_view');
+?>

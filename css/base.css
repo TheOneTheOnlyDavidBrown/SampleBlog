@@ -1,0 +1,41 @@
+﻿/*
+[Contents]
+
+	0- Global
+*/
+
+/* =0 Global
+---------------------------------------------------------------------------------------------------------------------*/
+html, body {
+	height: 100%;
+}
+.hide {
+	display: none;
+}
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+
+/* Clearfix */
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+.clearfix {
+	display: block;
+}
+/* for IE6 */
+* html .clearfix {
+	height: 1%;
+}
+/* for IE7 */
+* + html .clearfix {
+	zoom: 1 !important;
+}
