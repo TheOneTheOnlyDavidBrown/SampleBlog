@@ -14,16 +14,40 @@
 <ul class="v-menu">
 	<li><a href="<?=base_url()?>"><span>Home</span></a></li>
             <ul class="sub-v-menu">
-                <li><a href="<?=base_url()?>subscriptions">Subscriptions <?="(".$this->blog_model->getCount('subscriptions').")";?></a></li>
-                <li><a href="<?=base_url()?>subscribers">Subscribers <?="(".$this->blog_model->getCount('subscribers').")";?></a></li>
+                <li>
+                    <a href="<?=base_url()?>subscriptions">
+                        Subscriptions <?="(".$this->blog_model->getCount('subscriptions').")";?>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?=base_url()?>subscribers">
+                        Subscribers <?="(".$this->blog_model->getCount('subscribers').")";?>
+                    </a>
+                </li>
             </ul>
 	<li>
-		<a   href=<?=base_url()."feed/".$this->session->userdata('id');?>><span>Profile</span></a>
+		<a href=<?=base_url()."feed/".$this->session->userdata('id');?>><span>Profile</span></a>
 		<ul class="sub-v-menu">
-                    <li><a href="<?=base_url()?>editprofile">Edit Profile</a></li>
-                    <!--li><a href="#">Settings</a></li>
-                    <li><a href="#">Privacy</a></li-->
-                    <li><a href="<?=base_url()."logout"?>">Log out</a></li>
+                    <li>
+                        <a href="<?=base_url()?>editprofile">
+                            Edit Profile
+                        </a>
+                    </li>
+                    <!--li>
+                        <a href="#">
+                            Settings
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Privacy
+                        </a>
+                    </li-->
+                    <li>
+                        <a href="<?=base_url()."logout"?>">
+                            Log out
+                        </a>
+                    </li>
 		</ul>
 	</li>
 	<!--li><a href="#"><span>About</span></a></li-->
