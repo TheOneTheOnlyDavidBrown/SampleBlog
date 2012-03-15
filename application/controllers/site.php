@@ -107,7 +107,7 @@ class Site extends CI_Controller {
         $this->load->view('includes/template_view',$data);
     }   
     
-    function deletepost()
+    function deletePost()
     {
         if($this->blog_model->deletePost($this->uri->segment(3)))
             redirect(base_url().'feed/'.$this->uri->segment(2));
@@ -115,7 +115,7 @@ class Site extends CI_Controller {
             $this->informer('Could not delete post');
     }
     
-    function deletecomment()
+    function deleteComment()
     {
         $uid=$this->uri->segment(2);
         $pid=$this->uri->segment(3);
@@ -208,7 +208,7 @@ class Site extends CI_Controller {
         $this->load->view('includes/template_view',$data);
     }
 
-    function editpost()
+    function editPost()
     {
         $data = array();
         $data['uid']=$this->uri->segment(2);
@@ -268,7 +268,7 @@ class Site extends CI_Controller {
             $this->blog_model->updateProfile();
     }
     
-    function searchpeople()
+    function searchPeople()
     {
         if ($this->input->post('search'))
             $data['searchString'] = $this->input->post('search');
@@ -279,7 +279,7 @@ class Site extends CI_Controller {
     
     function feed()
     {
-        if($this->uri->segment(2) == 'all' && !$this->session->userdata('id'))
+        if(strtolower($this->uri->segment(2)) == 'all' && !$this->session->userdata('id'))
             redirect(base_url().'index');
         
         $this->load->library('pagination');
@@ -288,7 +288,7 @@ class Site extends CI_Controller {
         if(!$this->uri->segment(2))
             $this->informer("This page does not exist");
         
-        if($this->uri->segment(2) == 'all')
+        if(strtolower($this->uri->segment(2)) == 'all')
             $uid='all';
         else
             $uid = $this->uri->segment(2);
@@ -306,18 +306,25 @@ class Site extends CI_Controller {
 
         $this->pagination->initialize($config);
         
-        if($this->uri->segment(2) != 'all')//if accessing my feed with my id in the url
+        if(strtolower($this->uri->segment(2)) != 'all')//if accessing my feed with my id in the url
         {
             $data['results']=$this->blog_model->feed($uid, $config['per_page'], $offset);
-            $data['page']='personal_feed_view';
+            if (!$data['results'] || $data['results']==0)
+            {
+                $this->informer("This user does not exist");
+            }
+            else
+            {
+                $data['page']='personal_feed_view';
+                $this->load->view('includes/template_view',$data);
+            }
         }
         else
         {
             $data['results']=$this->blog_model->globalFeed($config['per_page'], $offset);
             $data['page']='subscription_feed_view';
+            $this->load->view('includes/template_view',$data);
         }
-
-        $this->load->view('includes/template_view',$data);
     }
     
     function settings()
@@ -330,7 +337,7 @@ class Site extends CI_Controller {
         
     }
     
-    function addentry()
+    function addEntry()
     {
         $data = array();
         $data['page']='add_entry_view';
@@ -362,7 +369,7 @@ class Site extends CI_Controller {
         $this->article($this->uri->segment(2));
     }
     
-    function recoverpassword()
+    function recoverPassword()
     {
         
     }

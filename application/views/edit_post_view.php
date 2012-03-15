@@ -1,5 +1,3 @@
-
-
 <div class="banner"><h4>Editing a post...</h4></div>
 <div id="edit_post">
     <?php

@@ -1,14 +1,14 @@
 <?php
 
 class Blog_model extends CI_Model{
-	public $commentCount = 0;
+    public $commentCount = 0;
 
     function __construct()
     {
         parent::__construct();
     }
     
-    function checkRole()
+    function getRole()
     {
         return $this->session->userdata('role');
     }
@@ -20,10 +20,10 @@ class Blog_model extends CI_Model{
         $this->db->where('id', $pid);
         $query = $this->db->get('posts');
 
-        if($query->num_rows() == 1) {
-            foreach ($query->result() as $row) {
-                    $data[] = $row;
-            }
+        if($query->num_rows() == 1)
+        {
+            foreach ($query->result() as $row)
+                $data[] = $row;
             return $data;
         }
     }
@@ -39,9 +39,7 @@ class Blog_model extends CI_Model{
         if($query->num_rows() > 0)
         {
             foreach ($query->result() as $row)
-            {
                 $data[] = $row;
-            }
             return $data;
         }
     }
@@ -61,9 +59,7 @@ class Blog_model extends CI_Model{
         if($query->num_rows() > 0)
         {
             foreach ($query->result() as $row)
-            {
                 $data[] = $row;
-            }
             return $data;
         }
     }
@@ -86,11 +82,11 @@ class Blog_model extends CI_Model{
         if($query->num_rows() > 0)
         {
             foreach ($query->result() as $row)
-            {
                $data[] = $row;
-            }
             return $data;
         }
+        else
+            return false;
     }
     
     function globalFeed($limit, $offset)
@@ -107,9 +103,7 @@ class Blog_model extends CI_Model{
         if($query->num_rows() > 0)
         {
             foreach ($query->result() as $row)
-            {
                $querystring .= "user_id = ".$row->owner_id." OR ";
-            }
         }
         $querystring .= " published = 1 AND user_id = ".$this->session->userdata('id')." ORDER BY date DESC LIMIT $offset, $limit";
 
@@ -118,11 +112,11 @@ class Blog_model extends CI_Model{
         if($query->num_rows() > 0)
         {
             foreach ($query->result() as $row)
-            {
                $data[] = $row;
-            }
             return $data;
         }
+        else
+            return false;
     }
     
     function setupPagination($uid)
@@ -225,9 +219,7 @@ class Blog_model extends CI_Model{
         if($query->num_rows() > 0)
         {
             foreach ($query->result() as $row)
-            {
                 $data[] = $row;
-            }
             return $data;
         }
     }
@@ -245,25 +237,20 @@ class Blog_model extends CI_Model{
         {
             
             foreach ($query->result() as $row)
-            {
                 $data[] = $row;
-            }
             return $data;
         }
     }
     
     function isSubscribed()
     {
-        $data = array();
         $this->db->select('*');
         $this->db->where('subscriber_id',  $this->session->userdata('id'));
         $this->db->where('owner_id',  $this->uri->segment(2));
         $query = $this->db->get('subscribership');
 
         if($query->num_rows() == 1)
-        {
             return true;
-        }
     }
    
     function getCount($subscription)
@@ -311,6 +298,16 @@ class Blog_model extends CI_Model{
         $this->db->where('id',  $pid);
         $this->db->update('posts',$data);
         redirect(base_url().'article/'.$pid);
+    }
+    
+    function deletePost($pid)
+    {
+        $this->db->where('id',$pid);
+        $this->db->where('user_id',  $this->session->userdata('id'));
+        if($this->db->delete('posts'))
+            return true;
+        else
+            return false;
     }
     
     function deleteComment($cid)
@@ -378,16 +375,6 @@ class Blog_model extends CI_Model{
             else
                 return false;
         }        
-    }
-    
-    function deletePost($pid)
-    {
-        $this->db->where('id',$pid);
-        $this->db->where('user_id',  $this->session->userdata('id'));
-        if($this->db->delete('posts'))
-            return true;
-        else
-            return false;
     }
     
     function br2nl($string)

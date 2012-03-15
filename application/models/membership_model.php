@@ -57,6 +57,6 @@ class Membership_model extends CI_Model
     
     function passwordChange()
     {
-        
+        //needs to be written
     }
 }

@@ -60,9 +60,6 @@
                 <button class="button"><span>Edit Post</span></button>
             </form>
             <?php endif;?>
-            
-            
-            
 
             <form action="<?=base_url()?>article/<?=$row->id?>">
                 <button class="button"><span>Read More (<?=$commentCount?> Comment<?php if ($commentCount!=1) echo "s";?>)</span></button>

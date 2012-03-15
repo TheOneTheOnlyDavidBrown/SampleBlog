@@ -1,4 +1,3 @@
-
 <ul class="list">
     
     <?php if (isset($results)) : foreach ($results as $row) : ?>

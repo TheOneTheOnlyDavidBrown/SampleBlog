@@ -1,4 +1,3 @@
-
 <div class="banner"><h4>Edit your profile...</h4></div>
 <div id="edit_profile">
     <?php
