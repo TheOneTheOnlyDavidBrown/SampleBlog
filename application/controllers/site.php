@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+//this should have been broken down into multiple controllers
+//one for users, one for blogs, one for comments at the least
 class Site extends CI_Controller {
     
     public $is_logged_in;
